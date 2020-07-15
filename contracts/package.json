@@ -1,0 +1,51 @@
+{
+  "name": "fa12-plus",
+  "version": "1.0.0",
+  "description": "tkn.tools fa1.2 based tokens",
+  "devDependencies": {
+    "@taquito/taquito": "^6.2.0-beta.1",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
+    "eztz.js": "git+https://github.com/TezTech/eztz.git",
+    "fs-extra": "^9.0.0",
+    "lodash": "^4.17.15",
+    "onchange": "^7.0.2",
+    "promise-retry": "^1.1.1",
+    "rimraf": "^3.0.2",
+    "truffle": "^5.3.0-tezos.2"
+  },
+  "scripts": {
+    "clean": "rm -rf ./build",
+    "test": "truffle test",
+    "test:clean": "npm run clean && npm run test",
+    "test:watch": "onchange -i -k 'contracts/**' 'test/**' 'migrations/**' -- npm run test:clean",
+    "compile": "truffle compile",
+    "compile:clean": "npm run clean && npm run compile",
+    "compile:watch": "onchange -i -k 'contracts/**' 'test/**' 'migrations/**' -- npm run compile:clean",
+    "migrate": "truffle migrate",
+    "migrate:clean": "npm run clean && npm run migrate",
+    "migrate:watch": "onchange -i -k 'contracts/**' 'test/**' 'migrations/**' -- npm run migrate:clean",
+    "tools:start": "node ./scripts/tools.js start",
+    "tools:kill": "node ./scripts/tools.js kill",
+    "tools:update": "node ./scripts/tools.js update",
+    "tools:clean": "node ./scripts/tools.js clean",
+    "tools:init": "node ./scripts/tools.js init",
+    "tools:restart": "node ./scripts/tools.js restart",
+    "wait-for-sandbox": "node ./scripts/sandbox/waitForNetwork.js",
+    "sandbox:start": "./scripts/sandbox/start_sandbox.sh",
+    "sandbox:kill": "./scripts/sandbox/kill_sandbox.sh",
+    "sandbox:restart": "./scripts/sandbox/restart_sandbox.sh",
+    "env:start": "npm run sandbox:start -- carthage && npm run tools:start bbbox",
+    "env:kill": "npm run sandbox:kill -- carthage && npm run tools:kill bbbox",
+    "env:restart": "npm run sandbox:restart -- carthage && npm run tools:restart bbbox",
+    "env:clean": "npm run tools:kill bbbox && npm run tools:clean bbbox",
+    "commit": "git-cz"
+  },
+  "author": "matej.sima@stove-labs.com",
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
